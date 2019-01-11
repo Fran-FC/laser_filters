@@ -37,8 +37,11 @@
  *
  *
  *
- *  box_filter.cpp
+ *  box_count_filter.cpp
  *
+ *  author: Marc Bosch-Jorge <mbosch@robotnik.es>
+ *
+ *  Based on box_filter.cpp by:
  *  author: Sebastian Pütz <spuetz@uni-osnabrueck.de>
  */
 
