@@ -54,6 +54,12 @@
 	 This is a filter that removes points in a laser scan inside of a cartesian box, only if their number is below a threshold.
       </description>
     </class>
+     <class name="laser_filters/LaserScanOutOfBoxFilter" type="laser_filters::LaserScanOutOfBoxFilter" 
+	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
+      <description>
+	 This is a filter that removes points in a laser scan outside of a cartesian box (negate BoxFilter)
+      </description>
+    </class>
     <class name="laser_filters/LaserScanMaskFilter" type="laser_filters::LaserScanMaskFilter" 
 	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
       <description>
