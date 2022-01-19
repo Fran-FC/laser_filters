@@ -70,20 +70,8 @@ public:
       ROS_ERROR("Cannot configure LowerResolutionFilter: Didn't find 'reduce_points_factor' paramerer.");
       return false;
     }
-    if (!getParam("reduce_frequency_factor", reduce_frequency_factor_))
-    {
-      ROS_ERROR("Cannot configure LowerResolutionFilter: Didn't find 'reduce_frequency_factor' paramerer.");
-      return false;
-    }
-    if (reduce_frequency_factor_ > 1)
-    {
-      scan_counter_ = reduce_frequency_factor_;
-      reduce_frequency_ = true;
-    }
-    else
-      reduce_frequency_ = false;
+    ROS_INFO("Reduce number of points by a factor of %d", reduce_points_factor_);
 
-    ROS_INFO("Parameters configured");
     return true;
   }
 
@@ -99,35 +87,11 @@ public:
       return false;
     }
 
-    // Reduce frequency block
-    if (reduce_frequency_)
-    {
-      if (scan_counter_ != 1)
-      {
-        --scan_counter_;
-        return false;
-      }
-      scan_counter_ = reduce_frequency_factor_;
-    }
-
     scan_out = scan_in;
 
     int original_length = scan_in.ranges.size();
     int reduced_length = std::ceil(original_length / reduce_points_factor_);
-
-    // as we round up when defining reduced length, we have to take in count the last element of the array
-    // if the reduce factor is divisible by original length, we pick the nth last element (n=reduce_factor)
-    // else, nth last element will be defined by the mod operation
-    int mod_angles = original_length % reduce_points_factor_;
-    int index_last_element;
-    if (mod_angles != 0)
-    {
-      index_last_element = original_length - mod_angles;
-    }
-    else
-    {
-      index_last_element = original_length - reduce_points_factor_;
-    }
+    int index_last_element = original_length - reduce_points_factor_;
 
     scan_out.ranges.resize(reduced_length + 1);
     scan_out.intensities.resize(reduced_length + 1);
@@ -143,14 +107,8 @@ public:
     scan_out.angle_increment = scan_in.angle_increment * reduce_points_factor_;
     scan_out.angle_max = scan_in.angle_max - scan_out.angle_increment;
 
-    // ROS_INFO("Filtered out %d points from the laser scan", (original_length - reduced_length));
-
     return true;
   }
-
-private:
-  int scan_counter_;
-  bool reduce_frequency_;
 };
 };  // namespace laser_filters
 #endif
