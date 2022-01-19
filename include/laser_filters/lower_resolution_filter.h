@@ -90,11 +90,11 @@ public:
     scan_out = scan_in;
 
     int original_length = scan_in.ranges.size();
-    int reduced_length = std::ceil(original_length / reduce_points_factor_);
+    int reduced_length = std::floor(original_length / reduce_points_factor_);
     int index_last_element = original_length - reduce_points_factor_;
 
-    scan_out.ranges.resize(reduced_length + 1);
-    scan_out.intensities.resize(reduced_length + 1);
+    scan_out.ranges.resize(reduced_length);
+    scan_out.intensities.resize(reduced_length);
 
     int j = 0;
     for (int i = 0; i <= index_last_element; i += reduce_points_factor_)
