@@ -54,7 +54,8 @@
 	 This is a filter that removes points in a laser scan inside of a cartesian box.
       </description>
     </class>
-      <class name="laser_filters/LaserScanPolygonFilter" type="laser_filters::LaserScanPolygonFilter"
+
+    <class name="laser_filters/LaserScanPolygonFilter" type="laser_filters::LaserScanPolygonFilter"
 	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
       <description>
 	This is a filter that removes points in a laser scan inside of a polygon.
@@ -64,6 +65,18 @@
 	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
       <description>
  	This is a filter that removes speckle points in a laser scan by looking at neighbor points.
+     </description>
+    </class>
+    <class name="laser_filters/LaserScanBoxCountFilter" type="laser_filters::LaserScanBoxCountFilter" 
+	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
+      <description>
+	 This is a filter that removes points in a laser scan inside of a cartesian box, only if their number is below a threshold.
+      </description>
+    </class>
+    <class name="laser_filters/LaserScanOutOfBoxFilter" type="laser_filters::LaserScanOutOfBoxFilter" 
+	    base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
+      <description>
+	 This is a filter that removes points in a laser scan outside of a cartesian box (negate BoxFilter)
       </description>
     </class>
     <class name="laser_filters/LaserScanMaskFilter" type="laser_filters::LaserScanMaskFilter" 
@@ -96,6 +109,13 @@
                base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
       <description>
         This is a filter which extract blob object (human's foot, chair's foot) from a laser.
+      </description>
+    </class>
+    <class name="laser_filters/LaserScanFillGapsFilter" type="laser_filters::LaserScanFillGapsFilter"
+      base_class_type="filters::FilterBase<sensor_msgs::LaserScan>">
+      <description>
+  This is a filter which filters takes input scans and set inf or nan values to upper_replacement_value_,
+   only if there are valid measurements before and after that index.
       </description>
     </class>
   </library>
